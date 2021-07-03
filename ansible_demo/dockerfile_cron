@@ -1,0 +1,19 @@
+#Assuming that a cron job with name samp-cron has been created with parameter 0 * * * * to ensure it runs every 1 hour
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get -y install cron
+
+# Copy samp-cron file to the cron.d directory
+COPY samp-cron
+ 
+# Give execution rights on the cron job
+RUN chmod 0644 /etc/cron.d/samp-cron
+
+# Apply cron job
+RUN crontab /etc/cron.d/samp-cron
+ 
+# Create the log file to be able to run tail
+RUN touch /var/log/cron.log
+ 
+# Run the command on container startup
+CMD cron && tail -f /var/log/cron.log
