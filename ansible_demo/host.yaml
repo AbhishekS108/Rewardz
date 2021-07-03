@@ -1,0 +1,7 @@
+---
+[wordpress]
+<wp_server_ip>
+
+[database]
+<db_server_ip>
+

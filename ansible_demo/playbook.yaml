@@ -1,0 +1,17 @@
+---
+- hosts: all
+  gather_facts: False
+  become: yes
+
+tasks:
+  - name: install python 3
+    raw: test -e /usr/bin/python || (apt -y update && apt    install -y python-minimal)
+
+- hosts: wordpress
+
+  roles:
+    - server
+    - php
+    - mysql
+    - wordpress
+  
